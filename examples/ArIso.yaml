@@ -1,0 +1,26 @@
+# Transport tables of Ar + 1% iC4H10 (AlphaCAMM gas):
+#   restGarfield packages/restGarfield/examples/ArIso.yaml
+# adds a table per pressure and temperature to ArIso.root in the current directory (tables that already
+# exist are skipped; set outputPath for another directory), used by TRestDetectorDrift with
+# `mediumFile: "ArIso.root"` and drawn with
+#   restRoot -> REST_Garfield_DrawTransport("ArIso.root")
+# Magboltz is slow: about some minutes per field node.
+
+transportManager:
+  class: "TRestDetectorTransportManager"
+
+  medium:
+    class: "TRestDetectorMedium"
+    name: "ArIso"
+    state: "gas"
+    components: {Ar: 99, iC4H10: 1}
+
+  gasTable:
+    class: "TRestDetectorTransport"
+    pressures: [1 bar]
+    temperatures: [293.15]
+    fieldRange: [10 V/cm, 1000 V/cm]
+    fieldNodes: 20
+    logField: true
+    nCollisions: 10
+    maxElectronEnergy: 400 eV
