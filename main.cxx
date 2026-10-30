@@ -41,6 +41,7 @@ int main(int argc, char* argv[]) {
         }
 
         TRestDetectorTransportManager manager(section.first, section.second);
+        manager.CheckConfig();
         manager.PrintMetadata();
         const bool verbose = manager.GetVerboseLevel() >= TRestLogManager::REST_Verbose_Level::REST_Info;
         for (const auto& metadata : manager.fSimulations) {
