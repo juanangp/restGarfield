@@ -21,8 +21,8 @@
 #include <iostream>
 #include <stdexcept>
 
-#include "TRestDetectorTransportManager.h"
 #include "TRestDetectorTransport.h"
+#include "TRestDetectorTransportManager.h"
 #include "TRestTools.h"
 #include "TransportSimulation.h"
 

@@ -8,7 +8,7 @@ class TRestDetectorTransport;
 /// medium of the type of the medium definition (MediumMagboltz, which computes the gas table with
 /// Magboltz, MediumSilicon, ...), evaluates the transport parameters on the field grid and adds the table
 /// to the medium file (TRestDetectorTransport).
-void RunTransportSimulation(const TRestDetectorMedium& medium,
-                            TRestDetectorTransport& simulation, bool verbose);
+void RunTransportSimulation(const TRestDetectorMedium& medium, TRestDetectorTransport& simulation,
+                            bool verbose);
 
 #endif

@@ -27,8 +27,8 @@ const double kEV = REST_Units::REST_Units_Map["eV"].second;
 /// Garfield medium of the definition at a condition: gases (Magboltz computes their table) and solids of
 /// a single component known by Garfield
 std::unique_ptr<Garfield::Medium> CreateMedium(const TRestDetectorMedium& definition,
-                                               const TRestDetectorTransport& simulation,
-                                               double pressure, double temperature, bool verbose) {
+                                               const TRestDetectorTransport& simulation, double pressure,
+                                               double temperature, bool verbose) {
     const std::string error = "restGarfield: medium '" + definition.GetName() + "': ";
     if (definition.IsGas()) {
         if (definition.fComponents.size() > 6) throw std::runtime_error(error + "up to 6 gas components");
@@ -69,8 +69,9 @@ std::unique_ptr<Garfield::Medium> CreateMedium(const TRestDetectorMedium& defini
         if (material == "diamond") medium = std::make_unique<Garfield::MediumDiamond>();
     }
     if (!medium) {
-        throw std::runtime_error(error + "not supported by Garfield (gases, or solids Si, GaAs, GaN, CdTe or "
-                                         "diamond with a single component)");
+        throw std::runtime_error(error +
+                                 "not supported by Garfield (gases, or solids Si, GaAs, GaN, CdTe or "
+                                 "diamond with a single component)");
     }
     medium->SetTemperature(temperature);
     return medium;
@@ -90,8 +91,8 @@ std::string GetGarfieldTable(Garfield::MediumMagboltz& gas, const std::string& n
 
 }  // namespace
 
-void RunTransportSimulation(const TRestDetectorMedium& medium,
-                            TRestDetectorTransport& simulation, bool verbose) {
+void RunTransportSimulation(const TRestDetectorMedium& medium, TRestDetectorTransport& simulation,
+                            bool verbose) {
     const std::string fileName = simulation.GetMediumFile(medium).string();
     // Only gases depend on the pressure
     std::vector<double> pressures(simulation.fPressures.begin(), simulation.fPressures.end());
@@ -104,8 +105,8 @@ void RunTransportSimulation(const TRestDetectorMedium& medium,
 
     for (const double pressure : pressures) {
         for (const double temperature : simulation.fTemperatures) {
-            const std::string key = TRestDetectorTransport::GetKey(pressure, temperature, fields.front(),
-                                                                   fields.back(), penning);
+            const std::string key =
+                TRestDetectorTransport::GetKey(pressure, temperature, fields.front(), fields.back(), penning);
             // The file is created by the first table: TFile::Open would print an error if it does not exist
             bool exists = false;
             if (std::filesystem::exists(fileName)) {
