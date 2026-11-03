@@ -23,7 +23,7 @@
 
 #include "TRestDetectorTransport.h"
 #include "TRestDetectorTransportManager.h"
-#include "TRestTools.h"
+#include "TRestYAMLUtils.h"
 #include "TransportSimulation.h"
 
 int main(int argc, char* argv[]) {
@@ -33,8 +33,8 @@ int main(int argc, char* argv[]) {
     }
 
     try {
-        const YAML::Node config = TRestTools::ResolveAllRefs(YAML::LoadFile(argv[1]));
-        const auto section = TRestTools::GetMetadataClass(config, "TRestDetectorTransportManager");
+        const YAML::Node config = TRestYAMLUtils::ResolveRefs(YAML::LoadFile(argv[1]));
+        const auto section = TRestYAMLUtils::GetMetadataClass(config, "TRestDetectorTransportManager");
         if (!section.second) {
             throw std::runtime_error("no section of class TRestDetectorTransportManager in " +
                                      std::string(argv[1]));
